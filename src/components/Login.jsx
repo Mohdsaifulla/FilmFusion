@@ -1,42 +1,66 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { validation } from "../utils/validation";
 
 const Login = () => {
   const [isSingIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const toggleSignUp = () => {
     setIsSignIn(!isSingIn);
   };
-
-  // sm:w-[400px]  gap-4 rounded-lg p-4 absolute md:top-[15%] w-full md:left-[32%]  top-40
+  const handleInput = () => {
+    const message = validation(
+      emailRef.current.value,
+      passwordRef.current.value
+    );
+    setErrorMessage(message);
+  };
   return (
     <div className="h-screen bgImage flex flex-col relative">
       <div className="h-[10%]">
         <Header />
       </div>
 
-      <div className="w-full relative  flex items-center justify-center">
-        <form className="bg-black opacity-80 flex flex-col sm:w-[400px] w-full gap-4 absolute top-2">
+      <div className="w-full relative  flex items-center justify-center  opacity-85">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="bg-black  flex flex-col sm:w-[400px] w-full gap-4 absolute top-2 rounded-lg"
+        >
           <label className="text-3xl font-semibold text-white pt-6 mx-4">
             {isSingIn ? "Sing in" : "Sign Up"}
           </label>
           {!isSingIn && (
             <input
               type="text"
+              id="name"
+              name="name"
               placeholder="Name"
               className="bg-transparent text-white border p-4 mx-4 rounded"
             />
           )}
           <input
-            type="text"
+            type="email"
+            id="email"
+            name="email"
+            ref={emailRef}
             placeholder="Email"
             className="bg-transparent text-white border p-4 mx-4 rounded"
           />
           <input
             type="password"
+            id="password"
+            name="password"
+            ref={passwordRef}
             placeholder="Password"
             className="bg-transparent text-white border p-4 mx-4 rounded"
           />
-          <button className="bg-red-600 rounded text-xl font-semibold p-2 mx-4 text-white hover:bg-red-700">
+          <p className="text-red-600 text-sm mx-4">{errorMessage}</p>
+          <button
+            className="bg-red-600 rounded text-xl font-semibold p-2 mx-4 text-white hover:bg-red-700 opacity-100"
+            onClick={handleInput}
+          >
             {isSingIn ? "Sing in" : "Sign Up"}
           </button>
           <div className="flex gap-2 text-white p-2 mx-4">

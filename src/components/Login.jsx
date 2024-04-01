@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { validation } from "../utils/validation";
+import { auth } from "../utils/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const [isSingIn, setIsSignIn] = useState(true);
@@ -10,12 +12,30 @@ const Login = () => {
   const toggleSignUp = () => {
     setIsSignIn(!isSingIn);
   };
-  const handleInput = () => {
+  const handleSingInSignUpButton = () => {
     const message = validation(
       emailRef.current.value,
       passwordRef.current.value
     );
     setErrorMessage(message);
+
+    if (message) return;
+    if (!isSingIn) {
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode},${errorMessage}`);
+        });
+    }
   };
   return (
     <div className="h-screen bgImage flex flex-col relative">
@@ -59,7 +79,7 @@ const Login = () => {
           <p className="text-red-600 text-sm mx-4">{errorMessage}</p>
           <button
             className="bg-red-600 rounded text-xl font-semibold p-2 mx-4 text-white hover:bg-red-700 opacity-100"
-            onClick={handleInput}
+            onClick={handleSingInSignUpButton}
           >
             {isSingIn ? "Sing in" : "Sign Up"}
           </button>

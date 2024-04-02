@@ -2,11 +2,17 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { validation } from "../utils/validation";
 import { auth } from "../utils/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSingIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const nameRef=useRef(null)
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const toggleSignUp = () => {
@@ -23,12 +29,30 @@ const Login = () => {
     if (!isSingIn) {
       createUserWithEmailAndPassword(
         auth,
+        nameRef.current.value,
         emailRef.current.value,
         passwordRef.current.value
       )
         .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode},${errorMessage}`);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -56,6 +80,7 @@ const Login = () => {
               type="text"
               id="name"
               name="name"
+              ref={nameRef}
               placeholder="Name"
               className="bg-transparent text-white border p-4 mx-4 rounded"
             />

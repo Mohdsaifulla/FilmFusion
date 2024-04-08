@@ -6,6 +6,7 @@ import { addUser, removeUser } from "../store/userSlice";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { addSearch } from "../store/gptSlice";
 const Header = () => {
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
@@ -38,9 +39,21 @@ const Header = () => {
       <div className="px-16 py-4 ">
         <img src="/Netflix_logo.png" alt="logo" className="w-40" />
       </div>
+
       {user && (
-        <div className="px-16 font-bold text-xl text-gray-200 cursor-pointer">
-          <button onClick={handleSignOut}>Logout</button>
+        <div className="px-4">
+          <button
+            onClick={handleSignOut}
+            className="px-4 font-bold text-xl text-gray-200 cursor-pointer"
+          >
+            Logout
+          </button>
+          <button
+            onClick={() => dispatch(addSearch())}
+            className="bg-purple-400 p-1 rounded"
+          >
+            Search
+          </button>
         </div>
       )}
     </div>

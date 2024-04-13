@@ -8,7 +8,7 @@ const MainContainer = () => {
   const idNowPlaying = movies[0];
 
   return (
-    <div className="z">
+    <div className="">
       <VideoTitle singleMovie={idNowPlaying} />
       <VideoBackground movieId={idNowPlaying.id} singleMovie={idNowPlaying} />
     </div>

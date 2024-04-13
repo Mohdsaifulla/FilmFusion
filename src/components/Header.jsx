@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addSearch } from "../store/gptSlice";
+import { SUPPORTED_LANGUAGE } from "../utils/constants";
 const Header = () => {
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
@@ -42,6 +43,11 @@ const Header = () => {
 
       {user && (
         <div className="px-4">
+          <select>
+            {SUPPORTED_LANGUAGE.map((item) => (
+              <option key={item.identifier} value={item.identifier}>{item.name}</option>
+            ))}
+          </select>
           <button
             onClick={handleSignOut}
             className="px-4 font-bold text-xl text-gray-200 cursor-pointer"

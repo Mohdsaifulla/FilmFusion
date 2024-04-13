@@ -23,7 +23,9 @@ const Browse = () => {
       ) : (
         <>
           <MainContainer />
-          <SecondaryContainer />
+          <div className="bg-black">
+            <SecondaryContainer />
+          </div>
         </>
       )}
     </div>

@@ -12,7 +12,7 @@ const lang = {
     search: "buscar",
     searchPlaceholder: "¿Qué te gustaría ver hoy?",
   },
-  Arabic: {
+  arabic: {
     search: "يبحث",
     searchPlaceholder: "ماذا تريد أن تشاهد اليوم؟",
   },

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {addTopRatedMovies } from "../store/movieSlice";
+import { addTopRatedMovies } from "../store/movieSlice";
 import { options } from "../utils/fetchApi";
 const useTopRated = () => {
   const dispatch = useDispatch();
@@ -10,10 +10,8 @@ const useTopRated = () => {
       options
     );
     const data = await fetchData.json();
-    console.log(data)
 
     dispatch(addTopRatedMovies(data.results));
-
   };
   useEffect(() => {
     getTopRated();

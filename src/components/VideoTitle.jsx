@@ -1,7 +1,6 @@
 import React from "react";
 
 const VideoTitle = ({ singleMovie }) => {
-  //   console.log(singleMovie);
   return (
     <div className="w-screen aspect-video text-white overflow-hidden">
       <div className="px-10 w-96 relative lg:top-30 md:top-10 top-8 md:text-xl">

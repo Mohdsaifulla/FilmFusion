@@ -4,7 +4,6 @@ import { addVideoBackground } from "../store/movieSlice";
 import { options } from "../utils/fetchApi";
 
 const useMovieTrailer = (movieId) => {
-  //   console.log(movieId);
   const dispatch = useDispatch();
   const getBackgroundVideoApi = async () => {
     const apiData = await fetch(
@@ -12,14 +11,11 @@ const useMovieTrailer = (movieId) => {
       options
     );
     const jsonData = await apiData.json();
-    // console.log(jsonData);
     const filterData = jsonData?.results?.filter(
       (item) => item.type === "Trailer"
     );
     const trailer = filterData.length ? filterData[0] : jsonData.results[0];
     dispatch(addVideoBackground(trailer));
-    // console.log(trailer);
-    // console.log(videoTrailer);
   };
   useEffect(() => {
     getBackgroundVideoApi();

@@ -10,7 +10,6 @@ import GptSearch from "./GptSearch";
 
 const Browse = () => {
   const toggle = useSelector((store) => store?.search);
-  console.log(toggle.toggleSearch);
   usePlayingMovies();
   usePopularMovies();
   useTopRated();

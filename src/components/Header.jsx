@@ -42,7 +42,8 @@ const Header = () => {
   return (
     <div className="flex justify-between items-center bg-gradient-to-b from-black w-full">
       <div className="px-16 py-4 ">
-        <img src="/Netflix_logo.png" alt="logo" className="w-40" />
+        {/* <img src="/Netflix_logo.png" alt="logo" className="w-40" /> */}
+        <h1 className="text-3xl font-bold text-blue-500  gradient-text">FILM FUSION</h1>
       </div>
 
       {user && (

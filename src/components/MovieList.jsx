@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 
 const MovieList = ({ title, data }) => {
   return (
-    <div className="relative -top-60 mx-8">
+    <div className="relative top-10 sm:-top-50 mx-8">
       <p className="text-white pt-2 pb-4 text-2xl font-bold">{title}</p>
       <div className="flex gap-2 overflow-x-scroll scrollBar">
         {data &&

@@ -9,6 +9,9 @@ import { auth } from "../utils/firebase";
 import { addSearch } from "../store/gptSlice";
 import { SUPPORTED_LANGUAGE } from "../utils/constants";
 import { changedLanguage } from "../store/langSlice";
+import { IoSearch } from "react-icons/io5";
+import { IoHome } from "react-icons/io5";
+import { IoMdLogOut } from "react-icons/io";
 const Header = () => {
   const toggle = useSelector((store) => store?.search.toggleSearch);
   const user = useSelector((store) => store.user);
@@ -43,15 +46,17 @@ const Header = () => {
     <div className="flex justify-between items-center bg-gradient-to-b from-black w-full">
       <div className="px-16 py-4 ">
         {/* <img src="/Netflix_logo.png" alt="logo" className="w-40" /> */}
-        <h1 className="text-3xl font-bold text-blue-500  gradient-text">FILM FUSION</h1>
+        <h1 className="text-xl sm:text-3xl font-bold text-blue-500  gradient-text">
+          FILM FUSION
+        </h1>
       </div>
 
       {user && (
-        <div className="px-4">
+        <div className="px-8 flex justify-center items-center ">
           {toggle && (
-            <select onChange={handleChangeLanguage}>
+            <select onChange={handleChangeLanguage} className="rounded hidden md:flex">
               {SUPPORTED_LANGUAGE.map((item) => (
-                <option key={item.identifier} value={item.identifier}>
+                <option key={item.identifier} value={item.identifier} className="">
                   {item.name}
                 </option>
               ))}
@@ -62,14 +67,15 @@ const Header = () => {
             onClick={handleSignOut}
             className="px-4 font-bold text-xl text-gray-200 cursor-pointer"
           >
-            Logout
+            <IoMdLogOut className="font-bold text-white text-2xl" />
           </button>
 
-          <button
-            onClick={() => dispatch(addSearch())}
-            className="bg-purple-400 p-1 rounded"
-          >
-            {toggle ? "Home" : "Search"}
+          <button onClick={() => dispatch(addSearch())} className="">
+            {toggle ? (
+              <IoHome className="font-bold text-white text-2xl" />
+            ) : (
+              <IoSearch className="font-bold text-white text-2xl" />
+            )}
           </button>
         </div>
       )}
